@@ -1,5 +1,6 @@
 package com.modelot2.controllers;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,8 +46,11 @@ public class InventarioController {
 		@GetMapping("/nuevoYllanes")
 		public String nuevo(Model model) {
 			
-			model.addAttribute("lstProductos",_iIProductoRepository.findAll());
-			model.addAttribute("inventario", new Inventario());
+			model.addAttribute("lstProductos",_iIProductoRepository.findAllByOrderByNombre());
+			
+			Inventario inventario = new Inventario();
+			inventario.setFechaVen(LocalDate.now());
+			model.addAttribute("inventario", inventario);
 			
 			return "inventarios/nuevoYllanes";
 		}
@@ -54,9 +58,10 @@ public class InventarioController {
 		@PostMapping("/registrar")
 		public String registrar(@ModelAttribute Inventario inventario, Model model, RedirectAttributes flash) {
 			
-			model.addAttribute("lstProductos",_iIProductoRepository.findAll());
+			model.addAttribute("lstProductos",_iIProductoRepository.findAllByOrderByNombre());
 			
 			Inventario registrado = _iInventarioRepository.save(inventario);
+			
 			String mensaje = Alert.sweetAlertSuccess("Inventario con código " + registrado.getIdInventario() + " registrado");
 			
 			flash.addFlashAttribute("alert",mensaje);
@@ -67,7 +72,7 @@ public class InventarioController {
 		@GetMapping("/edicionYllanes/{id}")
 		public String edicion(@PathVariable Integer id, Model model) {
 			
-			model.addAttribute("lstProductos",_iIProductoRepository.findAll());
+			model.addAttribute("lstProductos",_iIProductoRepository.findAllByOrderByNombre());
 			
 			Inventario inventario = _iInventarioRepository.findById(id).orElseThrow();
 			model.addAttribute("inventario", inventario);
@@ -78,7 +83,7 @@ public class InventarioController {
 		@PostMapping("/guardar")
 		public String guardar(@ModelAttribute Inventario inventario, Model model, RedirectAttributes flash) {
 			
-			model.addAttribute("lstProductos",_iIProductoRepository.findAll());
+			model.addAttribute("lstProductos",_iIProductoRepository.findAllByOrderByNombre());
 			
 			Inventario registrado = _iInventarioRepository.save(inventario);
 

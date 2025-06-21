@@ -3,6 +3,7 @@ package com.modelot2.models;
 import java.time.LocalDate;
 
 import org.hibernate.annotations.DynamicInsert;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -19,8 +20,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter @Setter
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
+@DynamicInsert
 @Entity
 @Table(name = "tbl_inventario")
 public class Inventario {
@@ -31,6 +33,7 @@ public class Inventario {
 	private int idInventario;
 	
 	@Column(name = "fecha_vencimiento", nullable = false)
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate fechaVen;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -38,7 +41,7 @@ public class Inventario {
 	private Producto producto;
 	
 	@Column(name = "costo_ingreso", nullable = false)
-	private double costoIng;
+	private Double costoIng;
 	
 	@Column(name = "cantidad", columnDefinition = "INT DEFAULT 1")
 	private int cantidad;
@@ -49,5 +52,18 @@ public class Inventario {
 	@Column(name = "cod_estado", nullable = false)
 	private String codEstado;
 	
-	
+	public String getNomEstado() {
+		switch (codEstado) {
+		case "A":
+			return "Activo";
+		case "V":
+			return "Vencido";
+		case "T":
+			return "En tránsito";
+		case "B":
+			return "Bloqueado";
+		default:
+			return "Desconocido";
+		}
+	}
 }

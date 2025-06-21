@@ -15,7 +15,7 @@
 	<div class="container mt-4">
 		<div class="card shadow-lg">
 			<div class="card-body">
-				<h1 class="text-center">Inventario Nuevo</h1>
+				<h1 class="text-center" th:utext="|Inventario - Edición <br> Nro. ${inventario.idInventario}|"></h1>
 				<div class="row d-flex justify-content-center">
 					<div class="col-md-6">
 						<form th:action="@{/inventarios/guardar}" method="post" th:object="${inventario}">
@@ -26,7 +26,7 @@
 							</div>
 							<div class="mb-3">
 								<label for="inputDate">Fecha Venta</label>
-								<input type="datetime" class="form-control" id="inputDate" placeholder="Fecha" required
+								<input type="date" class="form-control" id="inputDate" required
 								th:field="*{fechaVen}">
 							</div>
 							<div class="row">
@@ -58,7 +58,7 @@
 							<div class="mb-3 col-md-6">
 								<label for="inputEstado">Estado</label>
 								<select id="inputEstado" class="form-select" required th:field="*{codEstado}">
-									<option value="-1">--Seleccione--</option>
+									<option value="">--Seleccione--</option>
 									<option value="A">Activo</option>
 									<option value="V">Vencido</option>
 									<option value="T">En tránsito</option>
@@ -70,7 +70,7 @@
 								<i class="fa-solid fa-eraser"></i>
 							</button>
 							<button type="submit" class="btn btn-primary">
-								Registrar
+								Guardar
 								<i class="fa-solid fa-floppy-disk"></i>
 							</button>
 							<a th:href="@{/inventarios/listadoYllanes}" class="btn btn-dark">

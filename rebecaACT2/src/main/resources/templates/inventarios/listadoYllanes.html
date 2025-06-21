@@ -51,12 +51,7 @@
 									<td th:text="|S/. ${#numbers.formatDecimal(item.costoIng,1,2,'POINT')}|" class="text-end"></td>
 									<td th:text="${item.cantidad}" class="text-end"></td>
 									<td th:text="${item.lote}" class="text-center"></td>
-									<td th:text="${item.codEstado == 'A' ? 'Activo' : 
-									              (item.codEstado == 'V' ? 'Vencido' :
-									              (item.codEstado == 'T' ? 'En tránsito' :
-									              (item.codEstado == 'B' ? 'Bloqueado' : 'takagao')))}"
-									    class="text-center">
-									</td>									
+									<td th:text="${item.nomEstado}"></td>								
 									<td class="d-flex justify-content-around">
 										<a th:href="@{/inventarios/edicionYllanes/{id}(id=${item.idInventario})}" class="btn btn-outline-secondary" title="Editar"
 											 role="button">

@@ -20,11 +20,6 @@
 					<div class="col-md-6">
 						<form th:action="@{/inventarios/registrar}" method="post" th:object="${inventario}">
 							<div class="mb-3">
-								<label for="inputCod">Código</label>
-								<input type="text" class="form-control" id="inputCod" placeholder="Código" required
-								th:field="*{idInventario}">
-							</div>
-							<div class="mb-3">
 								<label for="inputDate">Fecha Venta</label>
 								<input type="date" class="form-control" id="inputDate" placeholder="Fecha" required
 								th:field="*{fechaVen}">
@@ -58,7 +53,7 @@
 							<div class="mb-3 col-md-6">
 								<label for="inputEstado">Estado</label>
 								<select id="inputEstado" class="form-select" required th:field="*{codEstado}">
-									<option value="-1">--Seleccione--</option>
+									<option value="">--Seleccione--</option>
 									<option value="A">Activo</option>
 									<option value="V">Vencido</option>
 									<option value="T">En tránsito</option>
